@@ -1,3 +1,4 @@
+console.log("oiii")
 function buscarquizzes(){
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes");
     console.log(promise)
