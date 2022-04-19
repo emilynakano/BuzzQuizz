@@ -7,7 +7,9 @@ function carregarquizzes(response){
     quizzes = response.data;
     renderizarquizzes();
 }
-
+function hello(){
+    console.log("hello Emily")
+}
 function renderizarquizzes(){
     const ulquizzes = document.querySelector(".quizzes");
     ulquizzes.innerHTML = "";
