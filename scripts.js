@@ -1,4 +1,4 @@
-
+let quizzes;
 function buscarquizzes(){
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes");
     promise.then(carregarquizzes); 
@@ -14,7 +14,8 @@ function renderizarquizzes(){
     for (let i = 0; i < quizzes.length; i++) {
         ulquizzes.innerHTML += 
         `
-        <div class="quizz">
+        <div class="quizz" onclick="abrirquizz(this)">
+    
             <div class="titulo">
                 <h2> ${quizzes[i].title}</h2>
             </div>
@@ -22,7 +23,9 @@ function renderizarquizzes(){
             </div>
         </div>
         `
+        console.log(`Eu sou o ID ${quizzes[i].id}`)
     }
+    
 }
 
 function criarquizz(){
@@ -101,6 +104,22 @@ function criarquizz(){
 function criarQuizz() {
     document.querySelector(".tela-inicial").classList.add("escondido");
     document.querySelector(".tela-inicial-criacao-quiz").classList.remove("escondido");
+}
+
+function abrirquizz(elemento){
+    console.log(elemento)
+    document.querySelector(".tela-inicial").classList.add("escondido");
+    document.querySelector(".tela-inicial-mostrar-quiz").classList.remove("escondido");
+    
+    const ID_DO_QUIZZ = quizzes[i].id
+    console.log(`Eu sou o numero ${ID_DO_QUIZZ}`)
+    console.log(ID_DO_QUIZZ)
+    URlidquizz = `https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${ID_DO_QUIZZ}`
+    const promise = axios.get(URlidquizz);
+    console.log(promise)
+    promise.then(carregarquizzes);
+
+    
 }
 function validacao() {
     const titulo = document.querySelector("input.titulo").value;
