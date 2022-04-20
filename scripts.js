@@ -1,10 +1,11 @@
-console.log("oiii")
 function buscarquizzes(){
-    const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes");
+    console.log(`entrei aqui`)
+    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     console.log(promise)
     promise.then(carregarquizzes); 
 }
 function carregarquizzes(response){
+    console.log(`entrei aquiagora`)
     quizzes = response.data;
     renderizarquizzes();
 }
@@ -12,6 +13,7 @@ function hello(){
     console.log("hello Emily")
 }
 function renderizarquizzes(){
+    console.log(`entrei aquiagoraagora`)
     const ulquizzes = document.querySelector(".quizzes");
     ulquizzes.innerHTML = "";
     for (let i = 0; i < quizzes.length; i++) {
