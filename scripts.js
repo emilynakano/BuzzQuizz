@@ -1,6 +1,6 @@
 
 function buscarquizzes(){
-    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+    const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes");
     console.log(promise)
     promise.then(carregarquizzes); 
 }

@@ -132,7 +132,7 @@ main > h1 {
     font-size: 20px;
     color: black;
 }
-.quizzes {
+.quizzes, .quizzestodos {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
