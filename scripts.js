@@ -1,4 +1,4 @@
-console.log("oiii")
+
 function buscarquizzes(){
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes");
     console.log(promise)
@@ -98,4 +98,7 @@ function criarquizz(){
     
     
 }
-
+function criarQuizz() {
+    document.querySelector(".tela-inicial").classList.add("escondido");
+    document.querySelector(".tela-inicial-criacao-quiz").classList.remove("escondido");
+}

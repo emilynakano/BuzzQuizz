@@ -19,89 +19,111 @@
     </header>
         
     <div class="container">
-        <div class="criar-quizz">
-            <h1>Você não criou nenhum quizz ainda :(</h1>
+        <div class="tela-inicial-criacao-quiz escondido">
+            <h1>Comece pelo começo</h1>
+            <div class="box">
+                <input type="text" value="Título do seu quizz">
+                <input type="text" value="URL da imagem do seu quizz">
+                <input type="text" value="Quantidade de perguntas do quizz">
+                <input type="text" value="Quantidade de níveis do quizz">
+            </div>
             <div class="button">
-                <h2>Criar Quizz</h2>
+                <h2>Prosseguir pra criar perguntas</h2>
             </div>
+           
         </div>
 
-        <div class="seus-quizzes escondido">
-            <h1>Seus Quizzes</h1>
-            <div class="quizzes">
-                <div class="quizz">
-                    <div class="titulo">
-                        <h2>Acerte os personagens corretos dos Simpsons e prove seu amor!</h2>
-                    </div>
-                    <img src="images/Rectangle 36.png"/>
-                    
-                </div>
-                <div class="quizz">
-                    <div class="titulo">
-                        <h2>Acerte os personagens corretos dos Simpsons e prove seu amor!</h2>
-                    </div>
-                    <img src="images/Rectangle 36.png"/>
-                    
-                </div>
-                <div class="quizz">
-                    <div class="titulo">
-                        <h2>Acerte os personagens corretos dos Simpsons e prove seu amor!</h2>
-                    </div>
-                    <img src="images/Rectangle 36.png"/>
-                    
+        <div class="tela-inicial">
+            <div class="criar-quizz ">
+                <h1>Você não criou nenhum quizz ainda :(</h1>
+                <div class="button" onclick="criarQuizz()">
+                    <h2>Criar Quizz</h2>
                 </div>
             </div>
-                
-                
-        </div>
 
-        <main>
-            <h1>Todos os Quizzes</h1>
-            <div class="quizzes">
-                <div class="quizz">
-                    <div class="titulo">
-                        <h2>aaaaaasssssssssssssssaaaaaaaaaAcerte os personagens corretos dos Simpsons e prove seu amor!</h2>
+            <div class="seus-quizzes ">
+                <div class="header-seus-quizzes">
+                    <h1>Seus Quizzes</h1>
+                    <div class="botao" onclick="criarQuizz()">
+                        <img src="images/Vector.png" />
                     </div>
-                    <img src="images/Rectangle 36.png"/>
-                    
                 </div>
-                <div class="quizz">
-                    <div class="titulo">
-                        <h2>oi</h2>
+                
+                <div class="quizzes">
+                    <div class="quizz">
+                        <div class="titulo">
+                            <h2>Acerte os personagens corretos dos Simpsons e prove seu amor!</h2>
+                        </div>
+                        <img src="images/Rectangle 36.png"/>
+                        
                     </div>
-                    <img src="images/Rectangle 36.png"/>
-                    
-                </div>
-                <div class="quizz">
-                    <div class="titulo">
-                        <h2>Acerte os personagens corretos dos Simpsons e prove seu amor!</h2>
+                    <div class="quizz">
+                        <div class="titulo">
+                            <h2>Acerte os personagens corretos dos Simpsons e prove seu amor!</h2>
+                        </div>
+                        <img src="images/Rectangle 36.png"/>
+                        
                     </div>
-                    <img src="images/Rectangle 36.png"/>
-                    
-                </div>
-                <div class="quizz">
-                    <div class="titulo">
-                        <h2>Acerte os personagens corretos dos Simpsons e prove seu amor!</h2>
+                    <div class="quizz">
+                        <div class="titulo">
+                            <h2>Acerte os personagens corretos dos Simpsons e prove seu amor!</h2>
+                        </div>
+                        <img src="images/Rectangle 36.png"/>
+                        
                     </div>
-                    <img src="images/Rectangle 36.png"/>
-                    
                 </div>
-                <div class="quizz">
-                    <div class="titulo">
-                        <h2>Acerte os personagens corretos dos Simpsons e prove seu amor!</h2>
-                    </div>
-                    <img src="images/Rectangle 36.png"/>
                     
-                </div>
-                <div class="quizz">
-                    <div class="titulo">
-                        <h2>Acerte os personagens corretos dos Simpsons e prove seu amor!</h2>
-                    </div>
-                    <img src="images/Rectangle 36.png"/>
                     
-                </div>
             </div>
-        </main>
+
+            <main>
+                <h1>Todos os Quizzes</h1>
+                <div class="quizzes">
+                    <div class="quizz">
+                        <div class="titulo">
+                            <h2>aaaaaasssssssssssssssaaaaaaaaaAcerte os personagens corretos dos Simpsons e prove seu amor!</h2>
+                        </div>
+                        <img src="images/Rectangle 36.png"/>
+                        
+                    </div>
+                    <div class="quizz">
+                        <div class="titulo">
+                            <h2>oi</h2>
+                        </div>
+                        <img src="images/Rectangle 36.png"/>
+                        
+                    </div>
+                    <div class="quizz">
+                        <div class="titulo">
+                            <h2>Acerte os personagens corretos dos Simpsons e prove seu amor!</h2>
+                        </div>
+                        <img src="images/Rectangle 36.png"/>
+                        
+                    </div>
+                    <div class="quizz">
+                        <div class="titulo">
+                            <h2>Acerte os personagens corretos dos Simpsons e prove seu amor!</h2>
+                        </div>
+                        <img src="images/Rectangle 36.png"/>
+                        
+                    </div>
+                    <div class="quizz">
+                        <div class="titulo">
+                            <h2>Acerte os personagens corretos dos Simpsons e prove seu amor!</h2>
+                        </div>
+                        <img src="images/Rectangle 36.png"/>
+                        
+                    </div>
+                    <div class="quizz">
+                        <div class="titulo">
+                            <h2>Acerte os personagens corretos dos Simpsons e prove seu amor!</h2>
+                        </div>
+                        <img src="images/Rectangle 36.png"/>
+                        
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
