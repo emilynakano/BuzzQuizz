@@ -137,14 +137,43 @@ main > h1 {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+
+}
+
+.quizzestodos div{
+    width: 340px;
+    height: 181px;
+    flex-wrap: wrap;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.1%, #000000 100%);
+}
+.quizzestodos img {
+    width: 340px;
+    height: 181px;
+    border-radius: 5px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.1%, #000000 100%);
+}
+
+.quizzestodos h2{
+    font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 19px;
+line-height: 22px;
+display: flex;
+align-items: center;
+word-break: break-all;
+color: #FFFFFF;
 }
 .quizz {
     position: relative;
     margin-top: 12px;
+    width: 340px;
+    flex-wrap: wrap;
 }
-.quizz img {
+.quizz img{
     width: 340px;
     height: 181px;
+   
 }
 .quizz > .titulo {
     display: flex;
