@@ -10,7 +10,7 @@ function carregarquizzes(response){
 }
 
 function renderizarquizzes(){
-    const ulquizzes = document.querySelector(".quizzes");
+    const ulquizzes = document.querySelector(".quizzestodos");
     ulquizzes.innerHTML = "";
     for (let i = 0; i < quizzes.length; i++) {
         ulquizzes.innerHTML += 
@@ -18,7 +18,8 @@ function renderizarquizzes(){
         <div class="quizz">
             <div class="titulo">
                 <h2> ${quizzes[i].title}</h2>
-                <img src="${quizzes[i].image}">
+            </div>
+                <img src="${quizzes[i].image}"/>
             </div>
         </div>
         `
