@@ -10,7 +10,7 @@ function carregarquizzes(response){
 }
 
 function renderizarquizzes(){
-    const ulquizzes = document.querySelector(".main .quizzes");
+    const ulquizzes = document.querySelector(".quizzes");
     ulquizzes.innerHTML = "";
     for (let i = 0; i < quizzes.length; i++) {
         ulquizzes.innerHTML += 
