@@ -22,12 +22,12 @@
         <div class="tela-inicial-criacao-quiz escondido">
             <h1>Comece pelo começo</h1>
             <div class="box">
-                <input type="text" value="Título do seu quizz">
-                <input type="text" value="URL da imagem do seu quizz">
-                <input type="text" value="Quantidade de perguntas do quizz">
-                <input type="text" value="Quantidade de níveis do quizz">
+                <input class="titulo" type="text" placeholder="Título do seu quizz" />
+                <input class="url" type="text" placeholder="URL da imagem do seu quizz">
+                <input class="perguntas" placeholder="Quantidade de perguntas do quizz">
+                <input class="niveis" placeholder="Quantidade de níveis do quizz">
             </div>
-            <div class="button">
+            <div class="button" onclick="validacao()">
                 <h2>Prosseguir pra criar perguntas</h2>
             </div>
            
@@ -41,7 +41,7 @@
                 </div>
             </div>
 
-            <div class="seus-quizzes escondido">
+            <div class="seus-quizzes">
                 <div class="header-seus-quizzes">
                     <h1>Seus Quizzes</h1>
                     <div class="botao" onclick="criarQuizz()">
