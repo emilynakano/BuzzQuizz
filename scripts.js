@@ -135,6 +135,10 @@ function validacao() {
         } return false
     }
     if(qtdNiveisCorreto() && qtdPerguntasCorreto() && tituloCorreto() && urlCorreto()) {
-        return console.log("deu certo")
+        criarPerguntas()
     } else alert("preencha os dados corretamente")
+}
+function criarPerguntas() {
+    document.querySelector(".tela-inicial-criacao-quiz").classList.add("escondido")
+    document.querySelector(".tela-criacao-quizz-perguntas").classList.remove("escondido");
 }
