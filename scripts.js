@@ -1,7 +1,6 @@
 let quizzes;
 function buscarquizzes(){
-    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
-    console.log(promise)
+    const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes");
     promise.then(carregarquizzes); 
 }
 function carregarquizzes(response){
@@ -115,10 +114,46 @@ function abrirquizz(elemento){
     const ID_DO_QUIZZ = quizzes[i].id
     console.log(`Eu sou o numero ${ID_DO_QUIZZ}`)
     console.log(ID_DO_QUIZZ)
-    URlidquizz = `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${ID_DO_QUIZZ}`
+    URlidquizz = `https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${ID_DO_QUIZZ}`
     const promise = axios.get(URlidquizz);
     console.log(promise)
     promise.then(carregarquizzes);
 
     
+}
+function validacao() {
+    const titulo = document.querySelector("input.titulo").value;
+    const url = document.querySelector("input.url").value;
+    const qtdPerguntas = document.querySelector("input.perguntas").value;
+    const qtdNiveis = document.querySelector("input.niveis").value;
+
+    function tituloCorreto() {
+        if(titulo.length >= 20 && titulo.length <= 65){
+            return true;
+        } return false;
+    }
+    function urlCorreto() {
+        let re = new RegExp("^((http(s?):\/\/?[a-z])|(magnet:\?xt=urn:btih:))")
+
+        const url = document.querySelector("input.url").value;
+
+        if (re.test(url)) {
+            return true
+        } else {
+            return false
+        }
+    }
+    function qtdPerguntasCorreto() {
+        if(Number(qtdPerguntas) >= 3) {
+            return true;
+        } return false
+    }
+    function qtdNiveisCorreto() {
+        if(Number(qtdNiveis) >= 2) {
+            return true
+        } return false
+    }
+    if(qtdNiveisCorreto() && qtdPerguntasCorreto() && tituloCorreto() && urlCorreto()) {
+        return console.log("deu certo")
+    } else alert("preencha os dados corretamente")
 }
