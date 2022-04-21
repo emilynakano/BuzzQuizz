@@ -2,7 +2,7 @@ let quizzes;
 const container = document.querySelector(".container");
 
 function buscarquizzes(){
-    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+    const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes");
     promise.then(carregarquizzes); 
 }
 function carregarquizzes(response){
@@ -16,7 +16,7 @@ function renderizarquizzes(){
     for (let i = 0; i < quizzes.length; i++) {
         ulquizzes.innerHTML += 
         `
-        <div class="quizz" onclick="abrirquizz(this)">
+        <div class="quizz" onclick="abrirquizz(this)" id="${quizzes[i].id}">
     
             <div class="titulo">
                 <h2> ${quizzes[i].title}</h2>
@@ -25,100 +25,44 @@ function renderizarquizzes(){
             </div>
         </div>
         `
-        console.log(`Eu sou o ID ${quizzes[i].id}`)
-    }
-    
+       }
 }
-
-function criarquizz(){
-    const criaquizz = {
-        title: "Título do quizz",
-        image: "https://http.cat/411.jpg",
-        questions: [
-            {
-                title: "Título da pergunta 1",
-                color: "#123456",
-                answers: [
-                    {
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            },
-            {
-                title: "Título da pergunta 2",
-                color: "#123456",
-                answers: [
-                    {
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            },
-            {
-                title: "Título da pergunta 3",
-                color: "#123456",
-                answers: [
-                    {
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            }
-        ],
-        levels: [
-            {
-                title: "Título do nível 1",
-                image: "https://http.cat/411.jpg",
-                text: "Descrição do nível 1",
-                minValue: 0
-            },
-            {
-                title: "Título do nível 2",
-                image: "https://http.cat/412.jpg",
-                text: "Descrição do nível 2",
-                minValue: 50
-            }
-        ]
-    }
-    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants ", criaquizz)
-    
-    
-}
-
 
 function abrirquizz(elemento){
-    console.log(elemento)
+    ID_DO_QUIZZ = elemento.id
     document.querySelector(".tela-inicial").classList.add("escondido");
     document.querySelector(".tela-inicial-mostrar-quiz").classList.remove("escondido");
-    
-    const ID_DO_QUIZZ = quizzes[i].id
-    console.log(`Eu sou o numero ${ID_DO_QUIZZ}`)
-    console.log(ID_DO_QUIZZ)
     URlidquizz = `https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${ID_DO_QUIZZ}`
+    console.log(URlidquizz)
     const promise = axios.get(URlidquizz);
-    console.log(promise)
-    promise.then(carregarquizzes);
+    promise.then(carregarQuizzEscolhido);
+}
+function carregarQuizzEscolhido(response){
+    quizzEscolhido = response.data;
+    renderizarPerguntaQuizzEscolhido();
+    renderizarRespostaQuizzEscolhido();
+}
 
-    
+function renderizarPerguntaQuizzEscolhido(){
+    const quizz = document.querySelector(".tituloQuizz");
+    quizz.innerHTML = "";
+    quizz.innerHTML += 
+        `
+        <h1>${quizzEscolhido.title}</h1>
+        <img src="${quizzEscolhido.image}" alt="" class="imagemTitulo">
+        `
+}
+function renderizarRespostaQuizzEscolhido(){
+    const quantidadeQuestoes =  quizzEscolhido.questions
+    console.log(quantidadeQuestoes)
+    const objeto = quantidadeQuestoes.data
+    console.log(`eu sou o objeto ${objeto}`)
+    const ulRespostaquizz = document.querySelector(".respostaQuizz");
+    ulRespostaquizz.innerHTML = "";
+    console.log(quantidadeQuestoes.title)
+    for (let i = 0; i < quantidadeQuestoes.length; i++) {
+        console.log(quantidadeQuestoes[i])
+    }
 }
 function criarQuizz() {
     document.querySelector(".tela-inicial").classList.add("escondido");

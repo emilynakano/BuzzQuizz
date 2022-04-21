@@ -19,7 +19,7 @@ header {
     align-items: center;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     
 }
 header > h1 {
@@ -142,8 +142,13 @@ main > h1 {
     width: 100%;
     height: 100%;
     border-radius: 5px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.1%, #000000 100%);
+    position: absolute;
+    
 }
-
+.quizzestodos{
+    position: relative;
+}
 .quizzestodos h2{
     font-family: 'Roboto';
     font-style: normal;
@@ -154,6 +159,8 @@ main > h1 {
     align-items: center;
     word-break: break-all;
     color: #FFFFFF;
+    z-index: 1;
+    position: absolute;
 }
 .quizz {
     position: relative;
@@ -230,14 +237,18 @@ main > h1 {
     background: black;
     opacity: 0.6;
 }
+
 .tituloQuizz img{
     width: 100%;
     height: 227px;
     object-fit: cover;
- 
+    margin-top: 100px;
+    position: absolute;
     opacity: 0.6;
 }
-
+.respostaQuizz{
+    margin-top: 150px;
+}
 .escondido {
     display: none;
 }
@@ -302,6 +313,8 @@ main > h1 {
     width: 340px;
     height: 181px;
     flex-wrap: wrap;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.1%, #000000 100%);
+    
 }
 
 .tela-inicial-mostrar-quiz h1{
@@ -315,7 +328,7 @@ main > h1 {
     text-align: center;
     color: #FFFFFF;
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     top: 50%;
 }
 
@@ -344,7 +357,6 @@ main > h1 {
     flex-direction: column;
     }
     .pergunta1{
-        margin-top: 200px;
         width: 100%;
     }
 
