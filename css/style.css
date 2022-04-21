@@ -194,13 +194,18 @@ color: #FFFFFF;
 }
 
 
-.tela-inicial-criacao-quiz > h1 {
+.tela-inicial-criacao-quiz h1, .tela-criacao-quizz-perguntas h1 {
     text-align: center;
     font-weight: 700;
     color: #000000;
     margin-bottom: 26px;
 }
-.tela-inicial-criacao-quiz .box {
+.tela-criacao-quizz-perguntas .box h1 {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 0;
+}
+.tela-inicial-criacao-quiz .box, .tela-criacao-quizz-perguntas .box {
     width: 600px;
     height: 256px;
     background-color: #FFFFFF;
@@ -211,7 +216,10 @@ color: #FFFFFF;
     flex-direction: column;
     justify-content: space-between;
 }
-.tela-inicial-criacao-quiz input {
+.tela-criacao-quizz-perguntas .box {
+    height: 830px;
+}
+.tela-inicial-criacao-quiz input, .tela-criacao-quizz-perguntas input {
     color: #BABABA;
     font-weight: 400;
     font-size: 19px;
@@ -222,7 +230,7 @@ color: #FFFFFF;
     border-radius: 5px;
     outline: none;
 }
-.tela-inicial-criacao-quiz .button {
+.tela-inicial-criacao-quiz .button, .tela-criacao-quizz-perguntas .button {
     margin: 0 auto;
     width: 368.86px;
     height: 54px;
@@ -230,7 +238,7 @@ color: #FFFFFF;
     background-color: #EC362D;
     margin-top: 85px;
 }
-.tela-inicial-criacao-quiz .button > h2 {
+.tela-inicial-criacao-quiz .button h2, .tela-criacao-quizz-perguntas .button h2{
     font-weight: 400;
     font-size: 21px;
     color: #FFF5F4;
