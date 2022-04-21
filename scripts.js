@@ -1,6 +1,6 @@
 let quizzes;
 function buscarquizzes(){
-    const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes");
+    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     promise.then(carregarquizzes); 
 }
 function carregarquizzes(response){
@@ -18,7 +18,7 @@ function renderizarquizzes(){
     
             <div class="titulo">
                 <h2> ${quizzes[i].title}</h2>
-            </div>
+            </div class="imagemQuizz">
                 <img src="${quizzes[i].image}"/>
             </div>
         </div>
