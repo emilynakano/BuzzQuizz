@@ -1,4 +1,5 @@
 let quizzes;
+let qtdNiveis, qtdPerguntas;
 const container = document.querySelector(".container");
 
 function buscarquizzes(){
@@ -223,25 +224,44 @@ function validacaoPergunta() {
         if(corPergunta[0] === "#" && corPergunta.length === 7) {
             let j = 0;
             for(let i = 1; i < corPergunta.length; i ++) {
-                if(corPergunta[i] === "A" || corPergunta[i] === "a" || corPergunta[i] === "B" || corPergunta[i] === "b" ||corPergunta[i] === "C" || corPergunta[i] === "c" || corPergunta[i] === "D" || corPergunta[i] === "d" || corPergunta[i] === "E" || corPergunta[i] === "e" || corPergunta[i] === "F" || corPergunta[i] === "f") {
+                if(corPergunta[i] === "A" || corPergunta[i] === "a" || !(isNaN(corPergunta[i]))) {
                     return j = j + 1;
                 }
+                if(corPergunta[i] === "B" || corPergunta[i] === "b" || !(isNaN(corPergunta[i])) ) {
+                    return j = j + 1;
+                   }
+                if(corPergunta[i] === "C" || corPergunta[i] === "c" || !(isNaN(corPergunta[i]))) {
+                    return j = j + 1;
+                   }
+                if(corPergunta[i] === "D" || corPergunta[i] === "d" || !(isNaN(corPergunta[i]))) {
+                    return j = j + 1;
+                   }
+                if(corPergunta[i] === "E" || corPergunta[i] === "e" || !(isNaN(corPergunta[i]))) {
+                    return j = j + 1;
+                   }
+                if(corPergunta[i] === "F" || corPergunta[i] === "f") {
+                    return j = j + 1;
+                   }
             }
-            console.log(j)
+            
           if(j === 6) {
               return true
-          } else {
-              return false
-          }
+          } 
         } else {
             return false
         }
     }
+    function textoNaoVazio() {
+        if(respostaCorreta )
+        respostaCorreta  
+        respostaIncorreta1
+        respostaIncorreta2
+        respostaIncorreta3
+    }
 
-
-
-    if(textoPerguntaPassando() && corPerguntaPassando()) {
-        return alert("deu tudo certo");
+    
+    if(textoPerguntaPassando() ) {
+        return console.log(Number(qtdPerguntas))
     } else {
         return alert("deu tudo errado")
     }
