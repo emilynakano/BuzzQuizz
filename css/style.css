@@ -249,9 +249,7 @@ main > h1 {
 .respostaQuizz{
     margin-top: 150px;
 }
-.escondido {
-    display: none;
-}
+
 
 
 .tela-inicial-criacao-quiz h1, .tela-criacao-quizz-perguntas h1 {
@@ -276,8 +274,23 @@ main > h1 {
     flex-direction: column;
     justify-content: space-between;
 }
+.tela-criacao-quizz-perguntas .frente-box {
+    margin: 0 auto;
+    width: 600px;
+    height: 74px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+.tela-criacao-quizz-perguntas .frente-box > h1 {
+    height: 74px;
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    
+}
 .tela-criacao-quizz-perguntas .box {
     height: 830px;
+    
 }
 .tela-inicial-criacao-quiz input, .tela-criacao-quizz-perguntas input {
     color: #BABABA;
@@ -297,6 +310,11 @@ main > h1 {
     border-radius: 15px;
     background-color: #EC362D;
     margin-top: 85px;
+}
+.tela-criacao-quizz-perguntas .question {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
 }
 .tela-inicial-criacao-quiz .button h2, .tela-criacao-quizz-perguntas .button h2{
     font-weight: 400;
@@ -330,6 +348,14 @@ main > h1 {
     position: absolute;
     z-index: 2;
     top: 50%;
+}
+
+
+.escondido {
+    display: none;
+}
+.box.escondido {
+    display: none;
 }
 
 @media (max-width: 1100px) {
