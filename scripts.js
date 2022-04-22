@@ -137,11 +137,12 @@ function criarQuizz() {
         </div>
     `
 }
+let qtdNiveis;
 function validacaoInicial() {
     const titulo = document.querySelector(".container .tela-inicial-criacao-quiz input.titulo").value;
     const url = document.querySelector(".container .tela-inicial-criacao-quiz input.url").value;
     const qtdPerguntas = document.querySelector(".container .tela-inicial-criacao-quiz input.perguntas").value;
-    const qtdNiveis = document.querySelector(".container .tela-inicial-criacao-quiz input.niveis").value;
+    qtdNiveis = document.querySelector(".container .tela-inicial-criacao-quiz input.niveis").value;
 
     function tituloCorreto() {
         if(titulo.length >= 20 && titulo.length <= 65){
@@ -160,7 +161,7 @@ function validacaoInicial() {
         }
     }
     function qtdPerguntasCorreto() {
-        if(Number(qtdPerguntas) >= 3) {
+        if(Number(qtdPerguntas) >= 0) {
             return true;
         } return false
     }
@@ -315,9 +316,100 @@ function validacaoPergunta() {
 
     }
     if(qtdCorreta === qtdPerguntasGlobal) {
-        
+        criarNiveis()
     } else {
         alert("preencha os dados corretamente!")
     }
     console.log(qtdCorreta)
 }
+function criarNiveis() {
+    document.querySelector(".tela-criacao-quizz-perguntas").classList.add("escondido");
+    container.innerHTML += `
+    <div class="tela-criacao-quizz-niveis">
+        <h1>Crie seus niveis</h1>
+    </div>
+    `
+    for(let i = 0; i < qtdNiveis; i ++) {
+        document.querySelector(".tela-criacao-quizz-niveis").innerHTML += `
+        <div class="question">
+            <div class="frente-box" onclick="abrirBox(this)">
+                <h1>Nivel ${i + 1}</h1>  
+            </div>
+            <div class="box escondido">
+                <h1>Nivel ${i + 1}</h1>
+                <input class="tituloNivel${i + 1}" placeholder="Título do nível" />
+                <input class="acertoMinimo${i + 1}" placeholder="% de acerto mínima"/>
+                <input class="urlImagemNivel${i + 1}" placeholder="URL da imagem do nível"/>
+                <input class="descricaoNivel${i + 1}" placeholder="Descrição do nível"/>
+            </div>
+        </div>
+    `
+
+    }
+    document.querySelector(".tela-criacao-quizz-niveis").innerHTML += `
+    <div class="button" onclick="validacaoNiveis()">
+        <h2>Prosseguir pra criar niveis</h2>
+    </div>`
+
+}
+
+function validacaoNiveis() {
+    let qtdCorretaNiveis = 0;
+    let qtdZero = 0;
+    for(let i = 0; i < qtdNiveis; i ++) {
+        const tituloNivel = document.querySelector(`.tela-criacao-quizz-niveis .tituloNivel${i + 1}`).value;
+        const acertoMinimo = document.querySelector(`.tela-criacao-quizz-niveis .acertoMinimo${i + 1}`).value;
+        const urlImagemNivel = document.querySelector(`.tela-criacao-quizz-niveis .urlImagemNivel${i + 1}`).value;
+        const descricaoNivel = document.querySelector(`.tela-criacao-quizz-niveis .descricaoNivel${i + 1}`).value;
+        function tituloNivelPassando () {
+            if(tituloNivel.length > 10) {
+                return true
+            } else {
+                return false
+            }
+        }
+        function acertoMinimoPassando () {
+            if(Number(acertoMinimo) >= 0 && Number(acertoMinimo) <= 100) {
+                return true
+            } else {
+                return false
+            }
+        }
+        function urlImagemNivelPassando() {
+            let re = new RegExp("^((http(s?):\/\/?[a-z])|(magnet:\?xt=urn:btih:))")
+            if (re.test(urlImagemNivel)) {
+                return true
+            } else {
+                return false
+            }
+        }
+        function descricaoNivelPassando() {
+            if(descricaoNivel.length > 30){
+                return true
+            } return false
+        }
+        if(Number(acertoMinimo) === 0 && acertoMinimo !== "") {
+            qtdZero += 1;
+        } 
+        
+        if(tituloNivelPassando() && acertoMinimoPassando() && urlImagemNivelPassando() && descricaoNivelPassando()) {
+            qtdCorretaNiveis = qtdCorretaNiveis + 1;
+        }
+    }
+    console.log(qtdCorretaNiveis)
+    if(qtdCorretaNiveis === Number(qtdNiveis) && qtdZero >= 1) {
+        
+    } else {
+        alert("Preencha os dados corretamente!")
+    }
+    
+}
+
+
+//if(Number(acertoMinimo) === 0 && acertoMinimo !== "") {
+ //   j = j + 1;
+//}
+//function acertoMinimo0Passando() {
+    
+//}
+//&& acertoMinimo0Passando()
