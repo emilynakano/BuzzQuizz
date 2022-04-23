@@ -62,6 +62,7 @@ function renderizarRespostaQuizzEscolhido(){
     console.log(quantidadeQuestoes.title)
     for (let i = 0; i < quantidadeQuestoes.length; i++) {
         console.log(quantidadeQuestoes[i])
+        console.log(quantidadeQuestoes[i].title)
     }
 }
 function criarQuizz() {
