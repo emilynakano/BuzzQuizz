@@ -1,4 +1,5 @@
 let quizzes;
+let quantidadeQuestoes
 const container = document.querySelector(".container");
 document.querySelector(".container");
 function buscarquizzes(){
@@ -16,36 +17,72 @@ function renderizarquizzes(){
     for (let i = 0; i < quizzes.length; i++) {
         ulquizzes.innerHTML += 
         `
-        <div class="quizz" onclick="abrirquizz(this)">
-    
-            <div class="titulo">
-                <h2> ${quizzes[i].title}</h2>
-            </div>
-                <img src="${quizzes[i].image}"/>
+        <div class="quizz" onclick="abrirquizz(this)" id="${quizzes[i].id}">
+            <div class="fundo">
+                <div class="titulo">
+                    <h2> ${quizzes[i].title}</h2>
+                </div>
+                    <img src="${quizzes[i].image}"/>
             </div>
         </div>
         `
-        console.log(`Eu sou o ID ${quizzes[i].id}`)
-    }
-    
+       }
 }
 
 
-
-
 function abrirquizz(elemento){
-    console.log(elemento)
+    let ID_DO_QUIZZ = elemento.id
+    console.log(`este é o ${ID_DO_QUIZZ}`)
     document.querySelector(".tela-inicial").classList.add("escondido");
     document.querySelector(".tela-inicial-mostrar-quiz").classList.remove("escondido");
-    
-    const ID_DO_QUIZZ = quizzes[i].id
-    console.log(`Eu sou o numero ${ID_DO_QUIZZ}`)
-    console.log(ID_DO_QUIZZ)
+  
     URlidquizz = `https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${ID_DO_QUIZZ}`
     const promise = axios.get(URlidquizz);
-    console.log(promise)
-    promise.then(carregarquizzes);
+     promise.then(carregarQuizzEscolhido);
+}
 
+function carregarQuizzEscolhido(response){
+    console.log("entrei aquiagora")
+    quizzEscolhido = response.data;
+    renderizarPerguntaQuizzEscolhido();
+    renderizarRespostaQuizzEscolhido();
+}
+
+
+function renderizarPerguntaQuizzEscolhido(){
+    const quizz = document.querySelector(".tituloQuizz");
+    quizz.innerHTML = "";
+    quizz.innerHTML += 
+        `
+        <h1>${quizzEscolhido.title}</h1>
+        <img src="${quizzEscolhido.image}" alt="" class="imagemTitulo">
+        `
+}
+function renderizarRespostaQuizzEscolhido(){
+    
+    quantidadeQuestoes =  quizzEscolhido.questions
+    console.log(quantidadeQuestoes)
+    const ulRespostaquizz = document.querySelector(".respostaQuizz");
+    ulRespostaquizz.innerHTML = "";
+    console.log(quantidadeQuestoes.title)
+    for (let i = 0; i < quantidadeQuestoes.length; i++) {
+       
+        ulRespostaquizz.innerHTML += 
+        `<div class="pergunta1">
+            <div class="questao pergunta${i}" >
+                <h3 style="background-color:${quantidadeQuestoes[i].color}">${quantidadeQuestoes[i].title}</h3>
+            </div>
+            <div class="resposta">
+                ${obterrespostas()}
+            </div>
+        </div>                    
+ `
+    }
+}
+function obterrespostas(){
+    i =0 
+    while (i < 4) {
+    }
     
 }
 function criarQuizz() {
