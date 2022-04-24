@@ -30,79 +30,7 @@ function renderizarquizzes(){
     
 }
 
-function criarquizz(){
-    const criaquizz = {
-        title: "Título do quizz",
-        image: "https://http.cat/411.jpg",
-        questions: [
-            {
-                title: "Título da pergunta 1",
-                color: "#123456",
-                answers: [
-                    {
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            },
-            {
-                title: "Título da pergunta 2",
-                color: "#123456",
-                answers: [
-                    {
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            },
-            {
-                title: "Título da pergunta 3",
-                color: "#123456",
-                answers: [
-                    {
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            }
-        ],
-        levels: [
-            {
-                title: "Título do nível 1",
-                image: "https://http.cat/411.jpg",
-                text: "Descrição do nível 1",
-                minValue: 0
-            },
-            {
-                title: "Título do nível 2",
-                image: "https://http.cat/412.jpg",
-                text: "Descrição do nível 2",
-                minValue: 50
-            }
-        ]
-    }
-    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants ", criaquizz)
-    
-    
-}
+
 
 
 function abrirquizz(elemento){
@@ -137,11 +65,11 @@ function criarQuizz() {
         </div>
     `
 }
-let qtdNiveis;
+let qtdNiveis, titulo, url;
 function validacaoInicial() {
-    const titulo = document.querySelector(".container .tela-inicial-criacao-quiz input.titulo").value;
-    const url = document.querySelector(".container .tela-inicial-criacao-quiz input.url").value;
-    const qtdPerguntas = document.querySelector(".container .tela-inicial-criacao-quiz input.perguntas").value;
+    titulo = document.querySelector(".container .tela-inicial-criacao-quiz input.titulo").value;
+    url = document.querySelector(".container .tela-inicial-criacao-quiz input.url").value;
+    qtdPerguntas = document.querySelector(".container .tela-inicial-criacao-quiz input.perguntas").value;
     qtdNiveis = document.querySelector(".container .tela-inicial-criacao-quiz input.niveis").value;
 
     function tituloCorreto() {
@@ -151,8 +79,6 @@ function validacaoInicial() {
     }
     function urlCorreto() {
         let re = new RegExp("^((http(s?):\/\/?[a-z])|(magnet:\?xt=urn:btih:))")
-
-        const url = document.querySelector(".tela-inicial-criacao-quiz input.url").value;
 
         if (re.test(url)) {
             return true
@@ -224,8 +150,9 @@ function criarPerguntas(qtdPerguntas) {
         qtdPerguntasGlobal = i;
     
 }
+let questions = [];
+let answers = [];
 function validacaoPergunta() {
-    console.log(qtdPerguntasGlobal)
     let qtdCorreta = 0;
     for(let i = 0; i < qtdPerguntasGlobal; i ++) {
         const textoPergunta = document.querySelector(`.tela-criacao-quizz-perguntas input.textoPergunta${i + 1}`).value;
@@ -238,7 +165,30 @@ function validacaoPergunta() {
         const urlImagemIncorreta2 = document.querySelector(`.tela-criacao-quizz-perguntas input.urlImagemIncorreta2${i + 1}`).value;
         const respostaIncorreta3 = document.querySelector(`.tela-criacao-quizz-perguntas input.respostaIncorreta3${i + 1}`).value;
         const urlImagemIncorreta3 = document.querySelector(`.tela-criacao-quizz-perguntas input.urlImagemIncorreta3${i + 1}`).value;
-        
+
+
+
+        questions = [
+            {
+                title: `${textoPergunta}`,
+                color: `${corPergunta}`,
+                answers: [
+                    {
+                        text: `${respostaCorreta}`,
+                        image: `${urlImagemCorreta}`,
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: `${respostaIncorreta1}`,
+                        image: `${urlImagemIncorreta1}`,
+                        isCorrectAnswer: false
+                    }
+                ]
+            } 
+        ]
+        //if (respostaIncorreta1 !== "") {
+        //    answers.push
+        //}
         function textoPerguntaPassando() {
             if(textoPergunta.length >= 20) {
                 return true
@@ -323,10 +273,11 @@ function validacaoPergunta() {
     console.log(qtdCorreta)
 }
 function criarNiveis() {
+    console.log(questions)
     document.querySelector(".tela-criacao-quizz-perguntas").classList.add("escondido");
     container.innerHTML += `
     <div class="tela-criacao-quizz-niveis">
-        <h1>Crie seus niveis</h1>
+        <h1>Agora, decida os níveis</h1>
     </div>
     `
     for(let i = 0; i < qtdNiveis; i ++) {
@@ -348,11 +299,11 @@ function criarNiveis() {
     }
     document.querySelector(".tela-criacao-quizz-niveis").innerHTML += `
     <div class="button" onclick="validacaoNiveis()">
-        <h2>Prosseguir pra criar niveis</h2>
+        <h2>Finalizar quizz</h2>
     </div>`
 
 }
-
+let levels = [];
 function validacaoNiveis() {
     let qtdCorretaNiveis = 0;
     let qtdZero = 0;
@@ -361,6 +312,14 @@ function validacaoNiveis() {
         const acertoMinimo = document.querySelector(`.tela-criacao-quizz-niveis .acertoMinimo${i + 1}`).value;
         const urlImagemNivel = document.querySelector(`.tela-criacao-quizz-niveis .urlImagemNivel${i + 1}`).value;
         const descricaoNivel = document.querySelector(`.tela-criacao-quizz-niveis .descricaoNivel${i + 1}`).value;
+        levels = [
+            {
+                title: `${tituloNivel}`,
+                image: `${urlImagemNivel}`,
+                text: `${descricaoNivel}`,
+                minValue: `${acertoMinimo}`
+            }
+        ]
         function tituloNivelPassando () {
             if(tituloNivel.length > 10) {
                 return true
@@ -398,18 +357,21 @@ function validacaoNiveis() {
     }
     console.log(qtdCorretaNiveis)
     if(qtdCorretaNiveis === Number(qtdNiveis) && qtdZero >= 1) {
-        
+        mandarQuizzServidor()
     } else {
         alert("Preencha os dados corretamente!")
     }
     
 }
-
-
-//if(Number(acertoMinimo) === 0 && acertoMinimo !== "") {
- //   j = j + 1;
-//}
-//function acertoMinimo0Passando() {
+function mandarQuizzServidor(){
     
-//}
-//&& acertoMinimo0Passando()
+    const criaquizz = {
+        title: `${titulo}`,
+        image: `${url}`,
+        questions: questions,
+        levels: levels
+    }
+    console.log(criaquizz)
+    
+    
+}
