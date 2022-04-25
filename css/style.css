@@ -138,7 +138,6 @@ main > h1 {
 
 }
 
-
 .quizz img{
     width: 100%;
     height: 100%;
@@ -190,7 +189,7 @@ main > h1 {
 }
 
 .pergunta1{
-    width: 759px;
+    width: 840px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -208,6 +207,9 @@ main > h1 {
     flex-direction: column;
     align-items: center;
     bottom: 15px;
+    flex-wrap: wrap;
+    word-break:break-word;
+
 }
 .pergunta1 h3{
     width: 688.16px;
@@ -221,15 +223,17 @@ main > h1 {
     font-size: 23px;
     font-weight: 700;
     color: #FFFFFF;
+    padding: 10px;
 }
 .respostas{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 15px;
+    margin-top: 5px;
     flex-wrap: wrap;
+    
 }
-.answer img{
+.answer img, .resultadoFinal img{
     margin: 16px 16px;
     height: 175px;
     width: 330px;
@@ -254,6 +258,8 @@ main > h1 {
     width: 100%;
     background: black;
     opacity: 0.6;
+    flex-wrap: wrap;
+    word-break:break-word;
 }
 
 .tituloQuizz img{
@@ -287,6 +293,7 @@ main > h1 {
 }
 .voltaTelaInicial span{
     color: #818181;
+    
 }
 .tela-inicial-mostrar-quiz .resultadoFinal{
     margin-top: 18px;
@@ -297,15 +304,18 @@ main > h1 {
     bottom: 15px;
     background-color: #FFFFFF;
     padding: 50px;
-    
 }
+
 .resultadoFinal .voltaTelaInicial{
     height: 44px;
     margin-top: 8px;
 }
-.resultadoFinal .imagemResultado{
-    width: 340px;
+.respostas img{
+    width: 330px;
     margin-top: 17px;
+}
+.respostas h4{
+    width: 330px;
 }
 
 
@@ -324,6 +334,9 @@ main > h1 {
     font-size: 17px;
     font-weight: 700;
     color: #484848;
+    flex-wrap: wrap;
+    word-break:break-word;
+    padding: 10px;
 }
 .porcentagem h3 {
     width: 688.16px;
@@ -337,6 +350,9 @@ main > h1 {
     font-size: 23px;
     font-weight: 700;
     color: #FFFFFF;
+    flex-wrap: wrap;
+    word-break:break-word;
+    padding: 10px;
 }
 
 .tela-inicial-criacao-quiz h1, .tela-criacao-quizz-perguntas h1, .tela-criacao-quizz-niveis h1 {
@@ -476,10 +492,10 @@ main > h1 {
         width: 90%;
     }
     .respostas{
-    flex-direction: column;
+        flex-direction: column;
     }
-    .pergunta1{
-        width: 100%;
+    .pergunta1, .tituloQuizz{
+        width: 90%;
     }
 
 }
