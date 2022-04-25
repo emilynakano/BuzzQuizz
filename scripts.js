@@ -191,7 +191,7 @@ function validacaoInicial() {
         }
     }
     function qtdPerguntasCorreto() {
-        if(Number(qtdPerguntas) >= 0) {
+        if(Number(qtdPerguntas) >= 3) {
             return true;
         } return false
     }
@@ -270,29 +270,24 @@ function validacaoPergunta() {
         const respostaIncorreta3 = document.querySelector(`.tela-criacao-quizz-perguntas input.respostaIncorreta3${i + 1}`).value;
         const urlImagemIncorreta3 = document.querySelector(`.tela-criacao-quizz-perguntas input.urlImagemIncorreta3${i + 1}`).value;
 
-
-
-        questions = [
-            {
-                title: `${textoPergunta}`,
-                color: `${corPergunta}`,
-                answers: [
-                    {
-                        text: `${respostaCorreta}`,
-                        image: `${urlImagemCorreta}`,
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: `${respostaIncorreta1}`,
-                        image: `${urlImagemIncorreta1}`,
-                        isCorrectAnswer: false
-                    }
-                ]
-            } 
-        ]
-        //if (respostaIncorreta1 !== "") {
-        //    answers.push
-        //}
+        questions[i] =
+        {
+            title: `${textoPergunta}`,
+            color: `${corPergunta}`,
+            answers: [
+                {
+                    text: `${respostaCorreta}`,
+                    image: `${urlImagemCorreta}`,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: `${respostaIncorreta1}`,
+                    image: `${urlImagemIncorreta1}`,
+                    isCorrectAnswer: false
+                }
+            ]
+        } 
+            
         function textoPerguntaPassando() {
             if(textoPergunta.length >= 20) {
                 return true
@@ -393,7 +388,7 @@ function criarNiveis() {
             <div class="box escondido">
                 <h1>Nivel ${i + 1}</h1>
                 <input class="tituloNivel${i + 1}" placeholder="Título do nível" />
-                <input class="acertoMinimo${i + 1}" placeholder="% de acerto mínima"/>
+                <input class="acertoMinimo${i + 1}" type="number"  placeholder="% de acerto mínima"/>
                 <input class="urlImagemNivel${i + 1}" placeholder="URL da imagem do nível"/>
                 <input class="descricaoNivel${i + 1}" placeholder="Descrição do nível"/>
             </div>
@@ -416,14 +411,15 @@ function validacaoNiveis() {
         const acertoMinimo = document.querySelector(`.tela-criacao-quizz-niveis .acertoMinimo${i + 1}`).value;
         const urlImagemNivel = document.querySelector(`.tela-criacao-quizz-niveis .urlImagemNivel${i + 1}`).value;
         const descricaoNivel = document.querySelector(`.tela-criacao-quizz-niveis .descricaoNivel${i + 1}`).value;
-        levels = [
+        const acertoMinimoNumero = Number(acertoMinimo);
+        levels[i] = 
             {
                 title: `${tituloNivel}`,
                 image: `${urlImagemNivel}`,
                 text: `${descricaoNivel}`,
-                minValue: `${acertoMinimo}`
+                minValue: acertoMinimoNumero
             }
-        ]
+        
         function tituloNivelPassando () {
             if(tituloNivel.length > 10) {
                 return true
@@ -469,13 +465,87 @@ function validacaoNiveis() {
 }
 function mandarQuizzServidor(){
     
-    const criaquizz = {
+    const mandarQuizz = {
         title: `${titulo}`,
         image: `${url}`,
         questions: questions,
         levels: levels
     }
-    console.log(criaquizz)
+    const certoQuizz = {
+        title: "Título do quizz",
+        image: "https://http.cat/411.jpg",
+        questions: [
+            {
+                title: "Título da pergunta 1",
+                color: "#123456",
+                answers: [
+                    {
+                        text: "Texto da resposta 1",
+                        image: "https://http.cat/411.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Texto da resposta 2",
+                        image: "https://http.cat/412.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            },
+            {
+                title: "Título da pergunta 2",
+                color: "#123456",
+                answers: [
+                    {
+                        text: "Texto da resposta 1",
+                        image: "https://http.cat/411.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Texto da resposta 2",
+                        image: "https://http.cat/412.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            },
+            {
+                title: "Título da pergunta 3",
+                color: "#123456",
+                answers: [
+                    {
+                        text: "Texto da resposta 1",
+                        image: "https://http.cat/411.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Texto da resposta 2",
+                        image: "https://http.cat/412.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            }
+        ],
+        levels: [
+            {
+                title: "Título do nível 1",
+                image: "https://http.cat/411.jpg",
+                text: "Descrição do nível 1",
+                minValue: 0
+            },
+            {
+                title: "Título do nível 2",
+                image: "https://http.cat/412.jpg",
+                text: "Descrição do nível 2",
+                minValue: 50
+            }
+        ]
+    }
+    console.log(certoQuizz)
+    console.log(mandarQuizz)
     
-    
+    const promise = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", mandarQuizz)
+    promise.then(sucessoQuizz);
+    promise.catch(alert("nao deu"));
+}
+function sucessoQuizz () {
+    alert("oi")
 }
