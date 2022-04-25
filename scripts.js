@@ -204,28 +204,23 @@ function validacaoPergunta() {
         const urlImagemIncorreta3 = document.querySelector(`.tela-criacao-quizz-perguntas input.urlImagemIncorreta3${i + 1}`).value;
 
 
-
-        questions = [
-            {
-                title: `${textoPergunta}`,
-                color: `${corPergunta}`,
-                answers: [
-                    {
-                        text: `${respostaCorreta}`,
-                        image: `${urlImagemCorreta}`,
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: `${respostaIncorreta1}`,
-                        image: `${urlImagemIncorreta1}`,
-                        isCorrectAnswer: false
-                    }
-                ]
-            } 
-        ]
-        //if (respostaIncorreta1 !== "") {
-        //    answers.push
-        //}
+            questions[i] =
+                {
+                    title: `${textoPergunta}`,
+                    color: `${corPergunta}`,
+                    answers: [
+                        {
+                            text: `${respostaCorreta}`,
+                            image: `${urlImagemCorreta}`,
+                            isCorrectAnswer: true
+                        },
+                        {
+                            text: `${respostaIncorreta1}`,
+                            image: `${urlImagemIncorreta1}`,
+                            isCorrectAnswer: false
+                        }
+                    ]
+                } 
         function textoPerguntaPassando() {
             if(textoPergunta.length >= 20) {
                 return true
@@ -349,14 +344,15 @@ function validacaoNiveis() {
         const acertoMinimo = document.querySelector(`.tela-criacao-quizz-niveis .acertoMinimo${i + 1}`).value;
         const urlImagemNivel = document.querySelector(`.tela-criacao-quizz-niveis .urlImagemNivel${i + 1}`).value;
         const descricaoNivel = document.querySelector(`.tela-criacao-quizz-niveis .descricaoNivel${i + 1}`).value;
-        levels = [
+        const acertoMinimoNumero = Number(acertoMinimo);
+        levels[i] = 
             {
                 title: `${tituloNivel}`,
                 image: `${urlImagemNivel}`,
                 text: `${descricaoNivel}`,
-                minValue: `${acertoMinimo}`
+                minValue: acertoMinimoNumero
             }
-        ]
+        
         function tituloNivelPassando () {
             if(tituloNivel.length > 10) {
                 return true
@@ -402,13 +398,87 @@ function validacaoNiveis() {
 }
 function mandarQuizzServidor(){
     
-    const criaquizz = {
+    const mandarQuizz = {
         title: `${titulo}`,
         image: `${url}`,
         questions: questions,
         levels: levels
     }
-    console.log(criaquizz)
+    const certoQuizz = {
+        title: "Título do quizz",
+        image: "https://http.cat/411.jpg",
+        questions: [
+            {
+                title: "Título da pergunta 1",
+                color: "#123456",
+                answers: [
+                    {
+                        text: "Texto da resposta 1",
+                        image: "https://http.cat/411.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Texto da resposta 2",
+                        image: "https://http.cat/412.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            },
+            {
+                title: "Título da pergunta 2",
+                color: "#123456",
+                answers: [
+                    {
+                        text: "Texto da resposta 1",
+                        image: "https://http.cat/411.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Texto da resposta 2",
+                        image: "https://http.cat/412.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            },
+            {
+                title: "Título da pergunta 3",
+                color: "#123456",
+                answers: [
+                    {
+                        text: "Texto da resposta 1",
+                        image: "https://http.cat/411.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Texto da resposta 2",
+                        image: "https://http.cat/412.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            }
+        ],
+        levels: [
+            {
+                title: "Título do nível 1",
+                image: "https://http.cat/411.jpg",
+                text: "Descrição do nível 1",
+                minValue: 0
+            },
+            {
+                title: "Título do nível 2",
+                image: "https://http.cat/412.jpg",
+                text: "Descrição do nível 2",
+                minValue: 50
+            }
+        ]
+    }
+    console.log(certoQuizz)
+    console.log(mandarQuizz)
     
-    
+    const promise = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", criarQuizz)
+    promise.then(sucessoQuizz);
+    promise.catch(alert("nao deu"));
+}
+function sucessoQuizz () {
+    alert("oi")
 }
