@@ -1,10 +1,7 @@
 let quizzes;
-let quantidadeQuestoes;
-let acertos = 0;
+let quantidadeQuestoes
 const container = document.querySelector(".container");
 document.querySelector(".container");
-let respostasquestão;
-let respondidas = 0;
 function buscarquizzes(){
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes");
     promise.then(carregarquizzes); 
@@ -45,6 +42,7 @@ function abrirquizz(elemento){
 }
 
 function carregarQuizzEscolhido(response){
+    console.log("entrei aquiagora")
     quizzEscolhido = response.data;
     renderizarPerguntaQuizzEscolhido();
     renderizarRespostaQuizzEscolhido();
@@ -60,98 +58,33 @@ function renderizarPerguntaQuizzEscolhido(){
         <img src="${quizzEscolhido.image}" alt="" class="imagemTitulo">
         `
 }
-
-
 function renderizarRespostaQuizzEscolhido(){
+    
     quantidadeQuestoes =  quizzEscolhido.questions
+    console.log(quantidadeQuestoes)
     const ulRespostaquizz = document.querySelector(".respostaQuizz");
     ulRespostaquizz.innerHTML = "";
-    
+    console.log(quantidadeQuestoes.title)
     for (let i = 0; i < quantidadeQuestoes.length; i++) {
-
-        respostasquestão = quantidadeQuestoes[i].answers
+       
         ulRespostaquizz.innerHTML += 
         `<div class="pergunta1">
-            <div class="questao" >
+            <div class="questao pergunta${i}" >
                 <h3 style="background-color:${quantidadeQuestoes[i].color}">${quantidadeQuestoes[i].title}</h3>
             </div>
-            <div class="respostas">
-                ${renderizarrespostas()}
+            <div class="resposta">
+                ${obterrespostas()}
             </div>
-            
-        </div> 
-
+        </div>                    
  `
     }
 }
-function renderizarrespostas(){
-    const answers = respostasquestão.sort(() => Math.random() - 0.5);
-    let quizAnswers = "";
-    answers.forEach(answer => {
-        quizAnswers += `
-        <div onclick="escolheResposta(this)" class="answer ${answer.isCorrectAnswer}" data-identifier="answer">
-            <img src="${answer.image}">
-            <h4>${answer.text}</h4>
-        </div>
-        `;
-    });
-    return quizAnswers;
-}
-
-function escolheResposta(elemento){
-    respondidas += 1
-    elemento.classList.add("selecionado")
-    let elementoparente = elemento.parentNode
-    let selecionaResposta = elementoparente.querySelectorAll(".answer")
-    selecionaResposta.forEach(answer => {
-        let elementSelect = answer.classList.contains("selecionado")
-        if (elementSelect === false) {
-            answer.classList.add("branca");
-            answer.setAttribute("onclick", "");
-            
-        } else {
-            answer.setAttribute("onclick", "");
-            
-        }
-    });
-    rigthanswers(elemento)
-    if (elemento.classList.contains("true")) {
-        acertos += 1
-       
+function obterrespostas(){
+    i =0 
+    while (i < 4) {
     }
-    contabilizarResultados();
+    
 }
-
-function rigthanswers(elemento){
-    let elementoparente = elemento.parentNode
-    const correta = elementoparente.querySelector(".true")
-    correta.classList.add("certa")
-    let selecionaRespostaerrada = elementoparente.querySelectorAll(".false")
-    selecionaRespostaerrada.forEach(answer => {
-        answer.classList.add("errada");
-    });
- 
-}
-function contabilizarResultados(){
-    if (respondidas == quantidadeQuestoes.length) {
-        let resultado = (acertos/quantidadeQuestoes.length)*100
-        document.querySelector(".resultadoFinal").classList.remove("escondido");
-        
-    }
-}
-
-function voltarPaginaInicial(){
-    window.location.reload();
-}
-
-function reiniciarQuizz(){
-    renderizarRespostaQuizzEscolhido()
-    document.querySelector(".resultadoFinal").classList.add("escondido");
-    window.scrollTo(0,0)
-}
-
-
-
 function criarQuizz() {
     document.querySelector(".tela-inicial").classList.add("escondido");
     container.innerHTML += `
@@ -161,7 +94,7 @@ function criarQuizz() {
                 <input class="titulo" placeholder="Título do seu quizz" />
                 <input class="url" placeholder="URL da imagem do seu quizz"/>
                 <input class="perguntas" placeholder="Quantidade de perguntas do quizz"/>
-                <input claess="niveis" placeholder="Quantidade de níveis do quizz"/>
+                <input class="niveis" placeholder="Quantidade de níveis do quizz"/>
             </div>
             <div class="button" onclick="validacaoInicial()">
                 <h2>Prosseguir pra criar perguntas</h2>
@@ -172,7 +105,7 @@ function criarQuizz() {
 let qtdNiveis, titulo, url;
 function validacaoInicial() {
     titulo = document.querySelector(".container .tela-inicial-criacao-quiz input.titulo").value;
-    url = document.querySelctor(".container .tela-inicial-criacao-quiz input.url").value;
+    url = document.querySelector(".container .tela-inicial-criacao-quiz input.url").value;
     qtdPerguntas = document.querySelector(".container .tela-inicial-criacao-quiz input.perguntas").value;
     qtdNiveis = document.querySelector(".container .tela-inicial-criacao-quiz input.niveis").value;
 
@@ -544,7 +477,6 @@ function mandarQuizzServidor(){
     
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", mandarQuizz)
     promise.then(sucessoQuizz);
-    promise.catch(alert("nao deu"));
 }
 function sucessoQuizz () {
     alert("oi")
