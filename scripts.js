@@ -124,7 +124,7 @@ function validacaoInicial() {
         }
     }
     function qtdPerguntasCorreto() {
-        if(Number(qtdPerguntas) >= 0) {
+        if(Number(qtdPerguntas) >= 3) {
             return true;
         } return false
     }
@@ -203,24 +203,24 @@ function validacaoPergunta() {
         const respostaIncorreta3 = document.querySelector(`.tela-criacao-quizz-perguntas input.respostaIncorreta3${i + 1}`).value;
         const urlImagemIncorreta3 = document.querySelector(`.tela-criacao-quizz-perguntas input.urlImagemIncorreta3${i + 1}`).value;
 
-
-            questions[i] =
+        questions[i] =
+        {
+            title: `${textoPergunta}`,
+            color: `${corPergunta}`,
+            answers: [
                 {
-                    title: `${textoPergunta}`,
-                    color: `${corPergunta}`,
-                    answers: [
-                        {
-                            text: `${respostaCorreta}`,
-                            image: `${urlImagemCorreta}`,
-                            isCorrectAnswer: true
-                        },
-                        {
-                            text: `${respostaIncorreta1}`,
-                            image: `${urlImagemIncorreta1}`,
-                            isCorrectAnswer: false
-                        }
-                    ]
-                } 
+                    text: `${respostaCorreta}`,
+                    image: `${urlImagemCorreta}`,
+                    isCorrectAnswer: true
+                },
+                {
+                    text: `${respostaIncorreta1}`,
+                    image: `${urlImagemIncorreta1}`,
+                    isCorrectAnswer: false
+                }
+            ]
+        } 
+            
         function textoPerguntaPassando() {
             if(textoPergunta.length >= 20) {
                 return true
@@ -321,7 +321,7 @@ function criarNiveis() {
             <div class="box escondido">
                 <h1>Nivel ${i + 1}</h1>
                 <input class="tituloNivel${i + 1}" placeholder="Título do nível" />
-                <input class="acertoMinimo${i + 1}" placeholder="% de acerto mínima"/>
+                <input class="acertoMinimo${i + 1}" type="number"  placeholder="% de acerto mínima"/>
                 <input class="urlImagemNivel${i + 1}" placeholder="URL da imagem do nível"/>
                 <input class="descricaoNivel${i + 1}" placeholder="Descrição do nível"/>
             </div>
@@ -475,7 +475,7 @@ function mandarQuizzServidor(){
     console.log(certoQuizz)
     console.log(mandarQuizz)
     
-    const promise = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", criarQuizz)
+    const promise = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", mandarQuizz)
     promise.then(sucessoQuizz);
     promise.catch(alert("nao deu"));
 }
