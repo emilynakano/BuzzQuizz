@@ -5,6 +5,10 @@ const container = document.querySelector(".container");
 document.querySelector(".container");
 let respostasquestão;
 let respondidas = 0;
+let resultado = 0 ;
+let listaDeQuizzesUsuarios = JSON.parse(localStorage.getItem('certoQuizz'));
+
+console.log(`aquiii${listaDeQuizzesUsuarios}`)
 function buscarquizzes(){
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes");
     promise.then(carregarquizzes); 
@@ -103,14 +107,14 @@ function escolheResposta(elemento){
     elemento.classList.add("selecionado")
     let elementoparente = elemento.parentNode
     let selecionaResposta = elementoparente.querySelectorAll(".answer")
-    selecionaResposta.forEach(answer => {
-        let elementSelect = answer.classList.contains("selecionado")
+    selecionaResposta.forEach(response => {
+        let elementSelect = response.classList.contains("selecionado")
         if (elementSelect === false) {
-            answer.classList.add("branca");
-            answer.setAttribute("onclick", "");
+            response.classList.add("branca");
+            response.setAttribute("onclick", "");
             
         } else {
-            answer.setAttribute("onclick", "");
+            response.setAttribute("onclick", "");
             
         }
     });
@@ -119,7 +123,16 @@ function escolheResposta(elemento){
         acertos += 1
        
     }
+    setTimeout(scrollInto, 2000)
     contabilizarResultados();
+}
+function scrollInto(){
+    window.scrollBy({
+        top: 1400,
+        left: 0,
+        behavior: "smooth"
+
+    })
 }
 
 function rigthanswers(elemento){
@@ -134,12 +147,38 @@ function rigthanswers(elemento){
 }
 function contabilizarResultados(){
     if (respondidas == quantidadeQuestoes.length) {
-        let resultado = (acertos/quantidadeQuestoes.length)*100
-        document.querySelector(".resultadoFinal").classList.remove("escondido");
+        resultado = (acertos/quantidadeQuestoes.length)*100
+        resultado = Math.round(resultado)
         
+        const selecionaNivel = quizzEscolhido.levels
+         
+        const nivelAtingido = selecionaNivel.filter(level => { if (level.minValue <= resultado) return true });
+        let higherLevel = nivelAtingido[0];
+        for (let i = 1; i < nivelAtingido.length; i++) {
+            if (higherLevel.minValue < nivelAtingido[i].minValue) higherLevel = nivelAtingido[i];
+        }
+        renderizarResultado(higherLevel)
     }
 }
-
+function renderizarResultado(response){
+    document.querySelector(".resultadoFinal").classList.remove("escondido");
+    document.querySelector(".resultadoFinal").innerHTML +=
+    `<div class="porcentagem" >
+                            <h3>${resultado}% de acerto: ${response.title} </h3>
+                        </div>
+                        <div class="imagemResultado">
+                            <img src="${response.image}" alt="">
+                        </div>
+                        <div class="textoResultado">
+                            <h4>${response.text}</h4>
+                        </div>
+                        <div class="refazer" onclick="reiniciarQuizz()">
+                            <span>Reiniciar Quizz</span> 
+                        </div>
+                        <div class="voltaTelaInicial" onclick="voltarPaginaInicial()"> 
+                            <span>Voltar pra home</span> 
+                        </div>`
+}
 function voltarPaginaInicial(){
     window.location.reload();
 }
