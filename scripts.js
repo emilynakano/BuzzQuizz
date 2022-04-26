@@ -1,16 +1,7 @@
-let quizzes;
+let quizzes = [];
 let quantidadeQuestoes
 const container = document.querySelector(".container");
 document.querySelector(".container");
-<<<<<<< HEAD
-=======
-let respostasquestão;
-let respondidas = 0;
-let resultado = 0 ;
-let listaDeQuizzesUsuarios = JSON.parse(localStorage.getItem('certoQuizz'));
-
-console.log(`aquiii${listaDeQuizzesUsuarios}`)
->>>>>>> 0a96df66994bf7e8d107c9fe18f61471b388c742
 function buscarquizzes(){
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes");
     promise.then(carregarquizzes); 
@@ -36,6 +27,7 @@ function renderizarquizzes(){
         </div>
         `
        }
+    
 }
 
 
@@ -88,118 +80,12 @@ function renderizarRespostaQuizzEscolhido(){
  `
     }
 }
-<<<<<<< HEAD
 function obterrespostas(){
     i =0 
     while (i < 4) {
     }
     
 }
-=======
-function renderizarrespostas(){
-    const answers = respostasquestão.sort(() => Math.random() - 0.5);
-    let quizAnswers = "";
-    answers.forEach(answer => {
-        quizAnswers += `
-        <div onclick="escolheResposta(this)" class="answer ${answer.isCorrectAnswer}" data-identifier="answer">
-            <img src="${answer.image}">
-            <h4>${answer.text}</h4>
-        </div>
-        `;
-    });
-    return quizAnswers;
-}
-
-function escolheResposta(elemento){
-    respondidas += 1
-    elemento.classList.add("selecionado")
-    let elementoparente = elemento.parentNode
-    let selecionaResposta = elementoparente.querySelectorAll(".answer")
-    selecionaResposta.forEach(response => {
-        let elementSelect = response.classList.contains("selecionado")
-        if (elementSelect === false) {
-            response.classList.add("branca");
-            response.setAttribute("onclick", "");
-            
-        } else {
-            response.setAttribute("onclick", "");
-            
-        }
-    });
-    rigthanswers(elemento)
-    if (elemento.classList.contains("true")) {
-        acertos += 1
-       
-    }
-    setTimeout(scrollInto, 2000)
-    contabilizarResultados();
-}
-function scrollInto(){
-    window.scrollBy({
-        top: 1400,
-        left: 0,
-        behavior: "smooth"
-
-    })
-}
-
-function rigthanswers(elemento){
-    let elementoparente = elemento.parentNode
-    const correta = elementoparente.querySelector(".true")
-    correta.classList.add("certa")
-    let selecionaRespostaerrada = elementoparente.querySelectorAll(".false")
-    selecionaRespostaerrada.forEach(answer => {
-        answer.classList.add("errada");
-    });
- 
-}
-function contabilizarResultados(){
-    if (respondidas == quantidadeQuestoes.length) {
-        resultado = (acertos/quantidadeQuestoes.length)*100
-        resultado = Math.round(resultado)
-        
-        const selecionaNivel = quizzEscolhido.levels
-         
-        const nivelAtingido = selecionaNivel.filter(level => { if (level.minValue <= resultado) return true });
-        let higherLevel = nivelAtingido[0];
-        for (let i = 1; i < nivelAtingido.length; i++) {
-            if (higherLevel.minValue < nivelAtingido[i].minValue) higherLevel = nivelAtingido[i];
-        }
-        renderizarResultado(higherLevel)
-    }
-}
-function renderizarResultado(response){
-    document.querySelector(".resultadoFinal").classList.remove("escondido");
-    document.querySelector(".resultadoFinal").innerHTML +=
-    `<div class="porcentagem" >
-                            <h3>${resultado}% de acerto: ${response.title} </h3>
-                        </div>
-                        <div class="imagemResultado">
-                            <img src="${response.image}" alt="">
-                        </div>
-                        <div class="textoResultado">
-                            <h4>${response.text}</h4>
-                        </div>
-                        <div class="refazer" onclick="reiniciarQuizz()">
-                            <span>Reiniciar Quizz</span> 
-                        </div>
-                        <div class="voltaTelaInicial" onclick="voltarPaginaInicial()"> 
-                            <span>Voltar pra home</span> 
-                        </div>`
-}
-function voltarPaginaInicial(){
-    window.location.reload();
-}
-
-function reiniciarQuizz(){
-    renderizarRespostaQuizzEscolhido()
-    document.querySelector(".resultadoFinal").classList.add("escondido");
-    window.scrollTo(0,0)
-}
-
-
-
->>>>>>> 0a96df66994bf7e8d107c9fe18f61471b388c742
 function criarQuizz() {
     document.querySelector(".tela-inicial").classList.add("escondido");
     container.innerHTML += `
@@ -511,9 +397,10 @@ function validacaoNiveis() {
     }
     
 }
+let mandarQuizz = [];
 function mandarQuizzServidor(){
     
-    const mandarQuizz = {
+    mandarQuizz = {
         title: `${titulo}`,
         image: `${url}`,
         questions: questions,
@@ -593,6 +480,68 @@ function mandarQuizzServidor(){
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", mandarQuizz)
     promise.then(sucessoQuizz);
 }
+let quizzTeste = [];
 function sucessoQuizz () {
-    alert("oi")
+    document.querySelector(".tela-criacao-quizz-niveis").classList.add("escondido");
+    container.innerHTML += `
+    <div class="tela-sucesso-quizz">
+            <h1>Seu Quizz está pronto!</h1>
+            <div class="box">
+                
+            </div>
+            <div class="button" onclick="acessarQuizz()">
+                <h2>Acesar quizz</h2>
+            </div>
+            <h3 onclick="voltarHome()">voltar para home</h3>
+        
+
+       </div>
+    `
+
+    AtualizarQuizzes()
+}
+function AtualizarQuizzes() {
+    const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes");
+    promise.then(atualizacaoCarregarquizzes); 
+}
+function atualizacaoCarregarquizzes(response){
+    quizzes = response.data;
+    pegarId();
+}
+function pegarId() {
+    for(let i = 0; i < quizzes.length; i ++) {
+        if(quizzes[i].title === mandarQuizz.title) {
+            
+            const dados = quizzes[i].id;
+            const dadosSerializados = JSON.stringify(dados);
+            localStorage.setItem("lista", dadosSerializados);
+            const listaSerializada = localStorage.getItem("lista");
+            const lista = JSON.parse(listaSerializada);
+        } 
+    }
+}
+function voltarHome() {
+    document.querySelector(".tela-sucesso-quizz").classList.add("escondido");
+    document.querySelector(".tela-inicial").classList.remove("escondido");
+    document.querySelector(".tela-inicial .criar-quizz").classList.add("escondido");
+    document.querySelector(".tela-inicial .seus-quizzes").classList.remove("escondido");
+
+}
+function renderizarSeusQuizzes(){
+    const ulquizzes = document.querySelector(".quizzestodos");
+    ulquizzes.innerHTML = "";
+    for (let i = 0; i < quizzes.length; i++) {
+        ulquizzes.innerHTML += 
+        `
+        <div class="quizz" onclick="abrirquizz(this)" id="${quizzes[i].id}">
+            <div class="fundo">
+                <div class="titulo">
+                    <h2> ${quizzes[i].title}</h2>
+                </div>
+                    <img src="${quizzes[i].image}"/>
+            </div>
+        </div>
+        `
+       }
+    
 }
