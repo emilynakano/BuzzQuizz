@@ -573,6 +573,7 @@ let quizzTeste = [];
 function sucessoQuizz (response) {
     console.log(`aqui é o ${response}`)
     id_quiz_criado = response.data.id
+    key_quiz_criado = response.data.key
     console.log(`este é o id criado ${id_quiz_criado}`)
     document.querySelector(".tela-criacao-quizz-niveis").classList.add("escondido");
     container.innerHTML += `
@@ -609,16 +610,23 @@ function atualizacaoCarregarquizzes(response){
     pegarseusquizzes()
     
 }
-let arraycomSeusQuizzes = [];
+
 function pegarseusquizzes() {
-    arraycomSeusQuizzes.push = id_quiz_criado
-    console.log(`este é o array ${arraycomSeusQuizzes}`)
-    const dados = arraycomSeusQuizzes;
-    const dadosSerializados = JSON.stringify(dados);
-    localStorage.setItem("lista", dadosSerializados);
+        
     const listaSerializada = localStorage.getItem("lista");
-    const lista = JSON.parse(listaSerializada);
-    console.log(`esta é a lista ${lista}`)
+    if (listaSerializada === null){
+        listaSerializada = [{id: id_quiz_criado, key: key_quiz_criado}]
+        listaSerializada = JSON.stringify(listaSerializada);
+        localStorage.setItem("lista", dadosSerializados);
+    }else{
+        listaSerializada = JSON.parse(listaSerializada);
+        listaSerializada.push({id: id_quiz_criado, key: key_quiz_criado})
+        listaSerializada = JSON.stringify(listaSerializada);
+        localStorage.setItem("lista", dadosSerializados);
+    }
+
+    
+    
 
         renderizarSeusQuizzes()
 }
