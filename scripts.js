@@ -629,6 +629,7 @@ function pegarseusquizzes() {
     
 
         renderizarSeusQuizzes()
+
 }
 
 function voltarHome() {
@@ -645,7 +646,7 @@ function renderizarSeusQuizzes(){
         ulquizzes.innerHTML += 
         `
         <div class="seusquizzes">
-        <div class="quizz" onclick="abrirquizz(this)" id="${arraycomSeusQuizzes[j].id}">
+        <div class="quizz" onclick="abrirquizz(this) id="${listaSerializada[i].id}"">
             <div class="fundo">
                 <div class="titulo">
                     <h2> ${arraycomSeusQuizzes[j].title}</h2>
