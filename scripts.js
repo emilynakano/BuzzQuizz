@@ -189,7 +189,6 @@ function criarPerguntas(qtdPerguntas) {
     
 }
 let questions = [];
-let answers = [];
 function validacaoPergunta() {
     let qtdCorreta = 0;
     for(let i = 0; i < qtdPerguntasGlobal; i ++) {
@@ -480,7 +479,6 @@ function mandarQuizzServidor(){
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", mandarQuizz)
     promise.then(sucessoQuizz);
 }
-let quizzTeste = [];
 function sucessoQuizz () {
     document.querySelector(".tela-criacao-quizz-niveis").classList.add("escondido");
     container.innerHTML += `
@@ -529,7 +527,8 @@ function pegarId() {
             localStorage.setItem("lista", dadosSerializados);
             const listaSerializada = localStorage.getItem("lista");
             const lista = JSON.parse(listaSerializada);
-            arraycomSeusQuizzes[j] = lista;
+            arraycomSeusQuizzes.push(lista)
+        
             j = j + 1;
         } 
 
@@ -562,4 +561,14 @@ function renderizarSeusQuizzes(){
     }
     
     
+}
+function criarOutroQuizz() {
+    qtdNiveis = "";
+    titulo = "";
+    url = "";
+    qtdPerguntasGlobal = 0;
+    questions = [];
+    levels = [];
+    mandarQuizz = [];
+    criarQuizz();
 }
