@@ -1,6 +1,4 @@
-let quizzes;
-const container = document.querySelector(".container");
-document.querySelector(".container");
+
 function buscarquizzes(){
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes");
     promise.then(carregarquizzes); 

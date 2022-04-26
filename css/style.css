@@ -132,7 +132,7 @@ main > h1 {
     font-size: 20px;
     color: black;
 }
-.quizzestodos, .quizzes {
+.quizzestodos, .quizzes, .seusquizzes {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -144,6 +144,12 @@ main > h1 {
     width: 100%;
     height: 100%;
     border-radius: 5px;
+}
+.tela-sucesso-quizz img {
+    margin: 0 auto;
+}
+.tela-sucesso-quizz .quizz {
+    margin: 0;
 }
 
 .quizz h2{
@@ -163,11 +169,13 @@ main > h1 {
    right: 17px;
 }
 .quizz {
-    
     margin-top: 12px;
     width: 340px;
     flex-wrap: wrap;
   
+}
+.fundo {
+    margin-top: 12px;
 }
 
 .quizz > .titulo {
@@ -449,13 +457,13 @@ main > h1 {
     text-align: center;
     height: 52px;
 }
-.quizzestodos div{
+.quizzestodos div, .seusquizzes div{
     width: 340px;
     height: 181px;
     flex-wrap: wrap;
     
 }
-.quizzestodos{
+.quizzestodos, .seusquizzes{
     position: relative;
 }
 .quizz .titulo{
