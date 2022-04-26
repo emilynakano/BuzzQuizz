@@ -23,8 +23,8 @@ function renderizarquizzes(){
                     <h2> ${quizzes[i].title}</h2>
                 </div>
                     <img src="${quizzes[i].image}"/>
-            </div>
         </div>
+       
         `
        }
     
@@ -486,12 +486,20 @@ function sucessoQuizz () {
     container.innerHTML += `
     <div class="tela-sucesso-quizz">
             <h1>Seu Quizz está pronto!</h1>
-            <div class="box">
-                
+    
+            <div class="quizz" onclick="abrirquizz(this)"}">
+                <div class="fundo">
+                    <div class="titulo">
+                        <h2> ${mandarQuizz.title}</h2>
+                    </div>
+                    <img src="${mandarQuizz.image}"/>
+                </div>
+    
             </div>
             <div class="button" onclick="acessarQuizz()">
                 <h2>Acesar quizz</h2>
             </div>
+
             <h3 onclick="voltarHome()">voltar para home</h3>
         
 
@@ -499,6 +507,7 @@ function sucessoQuizz () {
     `
 
     AtualizarQuizzes()
+    buscarquizzes()
 }
 function AtualizarQuizzes() {
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes");
@@ -506,18 +515,24 @@ function AtualizarQuizzes() {
 }
 function atualizacaoCarregarquizzes(response){
     quizzes = response.data;
-    pegarId();
+    pegarId()
+    renderizarSeusQuizzes()
 }
+let arraycomSeusQuizzes = [];
 function pegarId() {
+    let j = 0;
     for(let i = 0; i < quizzes.length; i ++) {
         if(quizzes[i].title === mandarQuizz.title) {
             
-            const dados = quizzes[i].id;
+            const dados = quizzes[i];
             const dadosSerializados = JSON.stringify(dados);
             localStorage.setItem("lista", dadosSerializados);
             const listaSerializada = localStorage.getItem("lista");
             const lista = JSON.parse(listaSerializada);
+            arraycomSeusQuizzes[j] = lista;
+            j = j + 1;
         } 
+
     }
 }
 function voltarHome() {
@@ -525,23 +540,26 @@ function voltarHome() {
     document.querySelector(".tela-inicial").classList.remove("escondido");
     document.querySelector(".tela-inicial .criar-quizz").classList.add("escondido");
     document.querySelector(".tela-inicial .seus-quizzes").classList.remove("escondido");
+    
 
 }
 function renderizarSeusQuizzes(){
-    const ulquizzes = document.querySelector(".quizzestodos");
-    ulquizzes.innerHTML = "";
-    for (let i = 0; i < quizzes.length; i++) {
+    const ulquizzes = document.querySelector(".seus-quizzes");
+    for(let j = 0; j < arraycomSeusQuizzes.length; j ++) {
         ulquizzes.innerHTML += 
         `
-        <div class="quizz" onclick="abrirquizz(this)" id="${quizzes[i].id}">
+        <div class="seusquizzes">
+        <div class="quizz" onclick="abrirquizz(this)" id="${arraycomSeusQuizzes[j].id}">
             <div class="fundo">
                 <div class="titulo">
-                    <h2> ${quizzes[i].title}</h2>
+                    <h2> ${arraycomSeusQuizzes[j].title}</h2>
                 </div>
-                    <img src="${quizzes[i].image}"/>
+                    <img src="${arraycomSeusQuizzes[j].image}"/>
             </div>
         </div>
+        </div>
         `
-       }
+    }
+    
     
 }
