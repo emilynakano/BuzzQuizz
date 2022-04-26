@@ -6,6 +6,7 @@ let acertos = 0;
 let respondidas = 0;
 let resultado = 0 ;
 let quizzes = [];
+let id_quiz_criado
 
 function buscarquizzes(){
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes");
@@ -569,7 +570,10 @@ function mandarQuizzServidor(){
     promise.then(sucessoQuizz);
 }
 let quizzTeste = [];
-function sucessoQuizz () {
+function sucessoQuizz (response) {
+    console.log(`aqui é o ${response}`)
+    id_quiz_criado = response.data.id
+    console.log(`este é o id criado ${id_quiz_criado}`)
     document.querySelector(".tela-criacao-quizz-niveis").classList.add("escondido");
     container.innerHTML += `
     <div class="tela-sucesso-quizz">
@@ -589,8 +593,7 @@ function sucessoQuizz () {
             </div>
 
             <h3 onclick="voltarHome()">voltar para home</h3>
-        
-
+  
        </div>
     `
 
@@ -603,26 +606,23 @@ function AtualizarQuizzes() {
 }
 function atualizacaoCarregarquizzes(response){
     quizzes = response.data;
-    pegarId()
-    renderizarSeusQuizzes()
+    pegarseusquizzes()
+    
 }
 let arraycomSeusQuizzes = [];
-function pegarId() {
-    let j = 0;
-    for(let i = 0; i < quizzes.length; i ++) {
-        if(quizzes[i].title === mandarQuizz.title) {
-            
-            const dados = quizzes[i];
-            const dadosSerializados = JSON.stringify(dados);
-            localStorage.setItem("lista", dadosSerializados);
-            const listaSerializada = localStorage.getItem("lista");
-            const lista = JSON.parse(listaSerializada);
-            arraycomSeusQuizzes[j] = lista;
-            j = j + 1;
-        } 
+function pegarseusquizzes() {
+    arraycomSeusQuizzes.push = id_quiz_criado
+    console.log(`este é o array ${arraycomSeusQuizzes}`)
+    const dados = arraycomSeusQuizzes;
+    const dadosSerializados = JSON.stringify(dados);
+    localStorage.setItem("lista", dadosSerializados);
+    const listaSerializada = localStorage.getItem("lista");
+    const lista = JSON.parse(listaSerializada);
+    console.log(`esta é a lista ${lista}`)
 
-    }
+        renderizarSeusQuizzes()
 }
+
 function voltarHome() {
     document.querySelector(".tela-sucesso-quizz").classList.add("escondido");
     document.querySelector(".tela-inicial").classList.remove("escondido");
