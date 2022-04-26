@@ -1,7 +1,12 @@
-let quizzes = [];
-let quantidadeQuestoes
+let quantidadeQuestoes;
 const container = document.querySelector(".container");
 document.querySelector(".container");
+let respostasquestão;
+let acertos = 0;
+let respondidas = 0;
+let resultado = 0 ;
+let quizzes = [];
+
 function buscarquizzes(){
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes");
     promise.then(carregarquizzes); 
@@ -10,7 +15,6 @@ function carregarquizzes(response){
     quizzes = response.data;
     renderizarquizzes();
 }
-
 function renderizarquizzes(){
     const ulquizzes = document.querySelector(".quizzestodos");
     ulquizzes.innerHTML = "";
@@ -27,10 +31,7 @@ function renderizarquizzes(){
        
         `
        }
-    
 }
-
-
 function abrirquizz(elemento){
     let ID_DO_QUIZZ = elemento.id
     console.log(`este é o ${ID_DO_QUIZZ}`)
@@ -41,15 +42,11 @@ function abrirquizz(elemento){
     const promise = axios.get(URlidquizz);
      promise.then(carregarQuizzEscolhido);
 }
-
 function carregarQuizzEscolhido(response){
-    console.log("entrei aquiagora")
     quizzEscolhido = response.data;
     renderizarPerguntaQuizzEscolhido();
     renderizarRespostaQuizzEscolhido();
 }
-
-
 function renderizarPerguntaQuizzEscolhido(){
     const quizz = document.querySelector(".tituloQuizz");
     quizz.innerHTML = "";
@@ -60,32 +57,125 @@ function renderizarPerguntaQuizzEscolhido(){
         `
 }
 function renderizarRespostaQuizzEscolhido(){
-    
     quantidadeQuestoes =  quizzEscolhido.questions
-    console.log(quantidadeQuestoes)
     const ulRespostaquizz = document.querySelector(".respostaQuizz");
     ulRespostaquizz.innerHTML = "";
-    console.log(quantidadeQuestoes.title)
+    
     for (let i = 0; i < quantidadeQuestoes.length; i++) {
-       
+        respostasquestão = quantidadeQuestoes[i].answers
         ulRespostaquizz.innerHTML += 
         `<div class="pergunta1">
-            <div class="questao pergunta${i}" >
+            <div class="questao" >
                 <h3 style="background-color:${quantidadeQuestoes[i].color}">${quantidadeQuestoes[i].title}</h3>
             </div>
-            <div class="resposta">
-                ${obterrespostas()}
+            <div class="respostas">
+                ${renderizarrespostas()}
             </div>
-        </div>                    
+            
+        </div> 
  `
     }
 }
-function obterrespostas(){
-    i =0 
-    while (i < 4) {
-    }
-    
+function renderizarrespostas(){
+    const answers = respostasquestão.sort(() => Math.random() - 0.5);
+    let quizAnswers = "";
+    answers.forEach(answer => {
+        quizAnswers += `
+        <div onclick="escolheResposta(this)" class="answer ${answer.isCorrectAnswer}" data-identifier="answer">
+            <img src="${answer.image}">
+            <h4>${answer.text}</h4>
+        </div>
+        `;
+    });
+    return quizAnswers;
 }
+
+function escolheResposta(elemento){
+    respondidas += 1
+    elemento.classList.add("selecionado")
+    let elementoparente = elemento.parentNode
+    let selecionaResposta = elementoparente.querySelectorAll(".answer")
+    selecionaResposta.forEach(response => {
+        let elementSelect = response.classList.contains("selecionado")
+        if (elementSelect === false) {
+            response.classList.add("branca");
+            response.setAttribute("onclick", "");
+            
+        } else {
+            response.setAttribute("onclick", "");
+            
+        }
+    });
+
+    rigthanswers(elemento)
+    if (elemento.classList.contains("true")) {
+        acertos += 1
+    }
+    contabilizarResultados();
+}
+
+function rigthanswers(elemento){
+    let elementoparente = elemento.parentNode
+    const correta = elementoparente.querySelector(".true")
+    correta.classList.add("certa")
+    let selecionaRespostaerrada = elementoparente.querySelectorAll(".false")
+    selecionaRespostaerrada.forEach(answer => {
+        answer.classList.add("errada");
+    });
+ 
+}
+function contabilizarResultados(){
+    console.log(`aquiiii e aquiiii 222`)
+    if (respondidas == quantidadeQuestoes.length) {
+        
+        resultado = (acertos/quantidadeQuestoes.length)*100
+        resultado = Math.round(resultado)
+        console.log(`aquiiii e aquiiii ${resultado}`)
+        const selecionaNivel = quizzEscolhido.levels
+
+        const nivelAtingido = selecionaNivel.filter(level => { if (level.minValue <= resultado) return true });
+        let higherLevel = nivelAtingido[0];
+        for (let i = 1; i < nivelAtingido.length; i++) {
+            if (higherLevel.minValue < nivelAtingido[i].minValue) higherLevel = nivelAtingido[i];
+        }
+        renderizarResultado(higherLevel)
+    }
+}
+function renderizarResultado(response){
+    console.log(`aquiiii e aquiiii`)
+    document.querySelector(".resultadoFinal").classList.remove("escondido");
+    document.querySelector(".resultadoFinal").innerHTML +=
+    `<div class="porcentagem" >
+                            <h3>${resultado}% de acerto: ${response.title} </h3>
+                        </div>
+                        <div class="imagemResultado">
+                            <img src="${response.image}" alt="">
+                        </div>
+                        <div class="textoResultado">
+                            <h4>${response.text}</h4>
+                        </div>
+                        <div class="refazer" onclick="reiniciarQuizz()">
+                            <span>Reiniciar Quizz</span> 
+                        </div>
+                        <div class="voltaTelaInicial" onclick="voltarPaginaInicial()"> 
+                            <span>Voltar pra home</span> 
+                        </div>`
+}
+function voltarPaginaInicial(){
+    window.location.reload();
+}
+function reiniciarQuizz(){
+    renderizarRespostaQuizzEscolhido()
+    document.querySelector(".resultadoFinal").classList.add("escondido");
+    acertos = 0;
+    respondidas = 0;
+    resultado = 0 ;
+    document.querySelector(".resultadoFinal").innerHTML = ""
+    window.scrollTo(0,0)
+}
+
+
+
 function criarQuizz() {
     document.querySelector(".tela-inicial").classList.add("escondido");
     container.innerHTML += `
