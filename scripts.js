@@ -1,9 +1,9 @@
 let quizzes;
 let quantidadeQuestoes;
-let acertos = 0;
 const container = document.querySelector(".container");
 document.querySelector(".container");
 let respostasquestão;
+let acertos = 0;
 let respondidas = 0;
 let resultado = 0 ;
 let listaDeQuizzesUsuarios = JSON.parse(localStorage.getItem('certoQuizz'));
@@ -121,19 +121,10 @@ function escolheResposta(elemento){
     rigthanswers(elemento)
     if (elemento.classList.contains("true")) {
         acertos += 1
-       
     }
-    setTimeout(scrollInto, 2000)
     contabilizarResultados();
 }
-function scrollInto(){
-    window.scrollBy({
-        top: 1400,
-        left: 0,
-        behavior: "smooth"
 
-    })
-}
 
 function rigthanswers(elemento){
     let elementoparente = elemento.parentNode
@@ -186,6 +177,10 @@ function voltarPaginaInicial(){
 function reiniciarQuizz(){
     renderizarRespostaQuizzEscolhido()
     document.querySelector(".resultadoFinal").classList.add("escondido");
+    acertos = 0;
+    respondidas = 0;
+    resultado = 0 ;
+    document.querySelector(".resultadoFinal").innerHTML = ""
     window.scrollTo(0,0)
 }
 
@@ -200,7 +195,7 @@ function criarQuizz() {
                 <input class="titulo" placeholder="Título do seu quizz" />
                 <input class="url" placeholder="URL da imagem do seu quizz"/>
                 <input class="perguntas" placeholder="Quantidade de perguntas do quizz"/>
-                <input claess="niveis" placeholder="Quantidade de níveis do quizz"/>
+                <input class="niveis" placeholder="Quantidade de níveis do quizz"/>
             </div>
             <div class="button" onclick="validacaoInicial()">
                 <h2>Prosseguir pra criar perguntas</h2>
@@ -211,7 +206,7 @@ function criarQuizz() {
 let qtdNiveis, titulo, url;
 function validacaoInicial() {
     titulo = document.querySelector(".container .tela-inicial-criacao-quiz input.titulo").value;
-    url = document.querySelctor(".container .tela-inicial-criacao-quiz input.url").value;
+    url = document.querySelector(".container .tela-inicial-criacao-quiz input.url").value;
     qtdPerguntas = document.querySelector(".container .tela-inicial-criacao-quiz input.perguntas").value;
     qtdNiveis = document.querySelector(".container .tela-inicial-criacao-quiz input.niveis").value;
 
@@ -582,9 +577,15 @@ function mandarQuizzServidor(){
     console.log(mandarQuizz)
     
     const promise = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", mandarQuizz)
-    promise.then(sucessoQuizz);
+    promise.then(armazenarQuizzUsuario);
     promise.catch(alert("nao deu"));
+    const exemplo = certoQuizz
+// Array que você quer salvar
 }
-function sucessoQuizz () {
-    alert("oi")
+function armazenarQuizzUsuario (response) {
+    let idquizzusuario = response.data.id
+    console.log(`aqui é o id ${idquizzusuario}`)
+    const exemploSerializado = JSON.stringify(exemplo); // Array convertida pra uma string
+    console.log(exemploSerializado)
+    localStorage.setItem("meusquizz", exemploSerializado); // Armazenando a string na chave "lista" do Local Storage
 }
