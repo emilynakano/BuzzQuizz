@@ -515,13 +515,19 @@ main > h1 {
         margin-bottom: 20px;
         width: 90%;
     }
-    .respostas{
+.pergunta1 .respostas{
+        display: flex;
         flex-direction: column;
+        width: 90%;
+
     }
     .pergunta1, .tituloQuizz{
         width: 90%;
     }
 
+    .resultadoFinal, .resultadoFinal .porcentagem{
+        width: 100%;
+    }
 }
 
 

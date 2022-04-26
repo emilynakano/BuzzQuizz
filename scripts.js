@@ -119,21 +119,19 @@ function rigthanswers(elemento){
     const correta = elementoparente.querySelector(".true")
     correta.classList.add("certa")
     let selecionaRespostaerrada = elementoparente.querySelectorAll(".false")
-    selecionaRespostaerrada.forEach(answer => {
-        answer.classList.add("errada");
+    selecionaRespostaerrada.forEach(response => {
+        response.classList.add("errada");
     });
  
 }
 function contabilizarResultados(){
-    console.log(`aquiiii e aquiiii 222`)
     if (respondidas == quantidadeQuestoes.length) {
-        
         resultado = (acertos/quantidadeQuestoes.length)*100
         resultado = Math.round(resultado)
         console.log(`aquiiii e aquiiii ${resultado}`)
         const selecionaNivel = quizzEscolhido.levels
 
-        const nivelAtingido = selecionaNivel.filter(level => { if (level.minValue <= resultado) return true });
+        const nivelAtingido = selecionaNivel.filter(nivel => { if (nivel.minValue <= resultado) return true });
         let higherLevel = nivelAtingido[0];
         for (let i = 1; i < nivelAtingido.length; i++) {
             if (higherLevel.minValue < nivelAtingido[i].minValue) higherLevel = nivelAtingido[i];
@@ -145,7 +143,7 @@ function renderizarResultado(response){
     console.log(`aquiiii e aquiiii`)
     document.querySelector(".resultadoFinal").classList.remove("escondido");
     document.querySelector(".resultadoFinal").innerHTML +=
-    `<div class="porcentagem" >
+    `                   <div class="porcentagem" >
                             <h3>${resultado}% de acerto: ${response.title} </h3>
                         </div>
                         <div class="imagemResultado">
@@ -586,7 +584,7 @@ function sucessoQuizz () {
                 </div>
     
             </div>
-            <div class="button" onclick="acessarQuizz()">
+            <div class="button" onclick="abrirquizz(this)">
                 <h2>Acesar quizz</h2>
             </div>
 
